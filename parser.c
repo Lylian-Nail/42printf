@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 15:34:07 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 15:08:58 by lperson-         ###   ########.fr       */
+/*   Created: 2019/10/28 14:58:43 by lperson-          #+#    #+#             */
+/*   Updated: 2019/10/28 15:00:39 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_printf.h"
-#include "buffer.h"
+#include <stdarg.h>
 
-int		main(void)
+void	*parse_iterator(char *buffer, char const *format, va_list args)
 {
-	printf("%d\n", ft_printf("Hey you\n"));
-	return (0);
+
 }

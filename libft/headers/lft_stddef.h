@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lft_stddef.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 15:34:07 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 15:08:58 by lperson-         ###   ########.fr       */
+/*   Created: 2019/10/28 10:45:20 by lperson-          #+#    #+#             */
+/*   Updated: 2019/10/28 10:49:29 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_printf.h"
-#include "buffer.h"
+#ifndef LFT_STDDEF_H
 
-int		main(void)
+# define LFT_SDDEF_H
+
+typedef enum	e_std
 {
-	printf("%d\n", ft_printf("Hey you\n"));
-	return (0);
-}
+	STD_IN,
+	STD_OUT,
+	STD_ERR
+}				t_std;
+
+#endif

@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 15:34:07 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 15:08:58 by lperson-         ###   ########.fr       */
+/*   Created: 2019/10/28 14:50:54 by lperson-          #+#    #+#             */
+/*   Updated: 2019/10/28 14:51:32 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_printf.h"
-#include "buffer.h"
+#ifndef FT_PRINTF_H
 
-int		main(void)
-{
-	printf("%d\n", ft_printf("Hey you\n"));
-	return (0);
-}
+# define FT_PRINTF_H
+
+int		ft_printf(char const *format, ...);
+
+#endif
