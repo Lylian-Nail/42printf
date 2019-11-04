@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:18:52 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/04 13:07:15 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:50:11 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ typedef enum	e_spec
 typedef enum	e_flag
 {
 	FILL_0 = (1u << 0),
+	PREC = (1u << 1),
 }				t_flag;
 
 t_parse		init_flags(char const *format, va_list args);
+char		*advance_cursor(char const *format);
 
 #endif

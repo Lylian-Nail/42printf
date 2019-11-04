@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 14:58:43 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/04 13:03:58 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:50:21 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,33 @@ static int				is_flag(int c)
 **	ret:	Return the addr where the spec should be.
 */
 
-static char				*get_flags(char const *format, t_parse *info, va_list a)
+static void			get_flags(char const *format, t_parse *info, va_list a)
 {
-	while (is_flag(*format))
+	while (ft_isdigit(*format) || is_flag(*format))
 	{
 		if (*format == '0')
 			info->flag |= FILL_0;
 		else if (*format == '*')
 			info->prec = (int)va_arg(a, int);
-		else if (*format == '-')
+		else if (ft_isdigit(*format) || *format == '-')
 			info->padding = ft_atoi(format);
 		else if (*format == '.')
-			info->spec = ft_atoi(format + 1);
-		format++;
+		{
+			info->prec = ft_atoi(format + 1);
+			info->flag |= PREC;
+		}
+		if (*format == '.' || *format == '-' || ft_isdigit(*format))
+		{
+			if (*format == '-' || *format == '.')
+				format++;
+			while (ft_isdigit(*format))
+				format++;
+		}
+		else
+			format++;
 	}
 	if (info->spec < 0)
 		info->flag ^= FILL_0;
-	return ((char*)format);
 }
 
 /*
@@ -86,8 +96,23 @@ t_parse				init_flags(char const *format, va_list args)
 
 	infos.spec = 0;
 	infos.padding = 0;
-	format = get_flags(format, &infos, args);
+	infos.flag = 0;
+	get_flags(format, &infos, args);
+	format = advance_cursor(format);
 	if (ft_strchr(convert, *format))
 		infos.spec |= tab[get_index(convert, *format)];
 	return (infos);
+}
+
+char				*advance_cursor(char const *format)
+{
+	while (is_flag(*format))
+		format++;
+	while (ft_isdigit(*format))
+		format++;
+	while (is_flag(*format))
+		format++;
+	while (ft_isdigit(*format))
+		format++;
+	return ((char*)format);
 }

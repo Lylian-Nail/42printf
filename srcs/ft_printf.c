@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:47:17 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/04 11:50:40 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:52:32 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lft_string.h"
 #include "buffer.h"
 #include "parse.h"
+#include "formats.h"
 
 int	ft_printf(const char *format, ...)
 {
@@ -25,11 +26,12 @@ int	ft_printf(const char *format, ...)
 	total_count = 0;
 	while (*format)
 	{
-		// if (*format == '%')
-		// {
-		// 	total_count += ft_format(buffer, format, args);
-		// }
-		// else
+		if (*format == '%')
+		{
+			total_count += ft_format(buffer, ++format, args);
+			format = advance_cursor(format);
+		}
+		else
 			total_count += buffer_append(buffer, *format);
 		format++;
 	}

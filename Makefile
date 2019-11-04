@@ -1,3 +1,4 @@
+
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -30,7 +31,7 @@ LIBFT_PATH = libft/
 LIBFT_INC = libft/headers/
 
 SRCS = 
-SRCS_T = main.c srcs/buffer.c srcs/ft_printf.c srcs/parser.c srcs/formats/ft_fill.c 
+SRCS_T = main.c srcs/buffer.c srcs/ft_printf.c srcs/parser.c srcs/formats/ft_fill.c srcs/formats/format.c
 
 OBJS = $(SRCS:.c=.o)
 OBJS_T = $(SRCS_T:.c=.o)
