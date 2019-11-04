@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer.h                                           :+:      :+:    :+:   */
+/*   ft_fill.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 10:09:18 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 14:56:06 by lperson-         ###   ########.fr       */
+/*   Created: 2019/10/29 17:31:00 by lperson-          #+#    #+#             */
+/*   Updated: 2019/10/29 17:48:29 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_H
+#include "buffer.h"
 
-# define BUFFER_H
+/*
+**	desc: Fill the buffer with c until size reach 0.
+**	args: #1 The buffer, #2 the char that we use to fill, #3 the num of items.
+**	ret: Return the number of bytes writed to the output.
+*/
 
-# include <stddef.h>
+int		ft_fill(char *buffer, int c, size_t size)
+{
+	int		bytes;
 
-# define BUFFER_SIZE	(64)
-
-int		buffer_append(char *buffer, char item);
-int		buffer_clear(char *buffer);
-
-#endif
+	bytes = 0;
+	while (size--)
+		bytes += buffer_append(buffer, c);
+	return (bytes);
+}

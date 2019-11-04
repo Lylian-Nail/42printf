@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 11:47:17 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 15:06:16 by lperson-         ###   ########.fr       */
+/*   Created: 2019/11/04 12:05:15 by lperson-          #+#    #+#             */
+/*   Updated: 2019/11/04 13:07:18 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include "buffer.h"
+#include "parse.h"
 
-int	ft_printf(const char *format, ...)
+int		ft_format(char const *format, va_list args)
 {
-	int		total_count;
-	char	buffer[BUFFER_SIZE + 1];
-	va_list	args;
+	t_parse	infos;
 
-	va_start(args, format);
-	total_count = 0;
-	while (*format)
-	{
-		total_count += buffer_append(buffer, *format);
-		format++;
-	}
-	total_count += buffer_clear(buffer);
-	va_end(args);
-	return (total_count);
+	infos = init_flags(format, args);
+	if 
 }

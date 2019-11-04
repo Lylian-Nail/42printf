@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:07:30 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 15:08:10 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:23:57 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 **	ret: Return the numbers of bytes that has been write to STD_OUT.
 */
 
-int		buffer_append(char *buffer, char item)
+int		buffer_append(char *buffer, int item)
 {
 	static size_t	i;
 	int				bytes;
@@ -31,19 +31,19 @@ int		buffer_append(char *buffer, char item)
 	bytes = 0;
 	if (i == BUFFER_SIZE)
 	{
-		buffer_clear(buffer);
-		ft_bzero(buffer, BUFFER_SIZE);
+		bytes = buffer_clear(buffer);
 		i = 0;
 	}
 	return (bytes);
 }
 
 /*
-**	desc: Clear the buffer but write it to STD_OUT before it. Fill it 
+**	desc: Clear the buffer but write it to STD_OUT before it. Fill it.
 **	with zeros and return the len that has been printed. Or -1 if error.
 **	args: #1 The buffer to clear.
 **	ret: The len that has been printed or -1 in case of error.
 */
+
 int		buffer_clear(char *buffer)
 {
 	size_t	len;

@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   buffer.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 14:58:43 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 15:00:39 by lperson-         ###   ########.fr       */
+/*   Created: 2019/10/28 10:09:18 by lperson-          #+#    #+#             */
+/*   Updated: 2019/10/29 17:24:23 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
+#ifndef BUFFER_H
 
-void	*parse_iterator(char *buffer, char const *format, va_list args)
-{
+# define BUFFER_H
 
-}
+# include <stddef.h>
+
+# define BUFFER_SIZE	(64)
+
+int		buffer_append(char *buffer, int item);
+int		buffer_clear(char *buffer);
+
+#endif

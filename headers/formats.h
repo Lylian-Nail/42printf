@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   formats.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 14:50:54 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 14:51:32 by lperson-         ###   ########.fr       */
+/*   Created: 2019/10/29 17:31:32 by lperson-          #+#    #+#             */
+/*   Updated: 2019/10/29 17:38:51 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
+#ifndef FORMATS_H
 
-# define FT_PRINTF_H
+# define FORMATS_H
 
-int		ft_printf(char const *format, ...);
+# include <stddef.h>
+
+int		ft_fill(char *buffer, int c, size_t size);
 
 #endif
