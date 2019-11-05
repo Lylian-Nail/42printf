@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:07:30 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/29 17:23:57 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/05 18:08:27 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,18 @@ int		buffer_append(char *buffer, int item)
 	int				bytes;
 
 	buffer[i++] = item;
-	buffer[i] = 0;
 	bytes = 0;
 	if (i == BUFFER_SIZE)
 	{
-		bytes = buffer_clear(buffer);
+		bytes += write(1, buffer, i);
 		i = 0;
+		ft_bzero(buffer, BUFFER_SIZE);
 	}
-	return (bytes);
-}
-
-/*
-**	desc: Clear the buffer but write it to STD_OUT before it. Fill it.
-**	with zeros and return the len that has been printed. Or -1 if error.
-**	args: #1 The buffer to clear.
-**	ret: The len that has been printed or -1 in case of error.
-*/
-
-int		buffer_clear(char *buffer)
-{
-	size_t	len;
-	int		bytes;
-
-	len = ft_strlen(buffer);
-	bytes = write(1, buffer, len);
-	ft_bzero(buffer, BUFFER_SIZE);
+	else if (item == '\0')
+	{
+		bytes += write(1, buffer, i - 1);
+		i = 0;
+		ft_bzero(buffer, BUFFER_SIZE);
+	}
 	return (bytes);
 }

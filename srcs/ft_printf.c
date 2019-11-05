@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:47:17 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/04 13:52:32 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/05 18:08:34 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int	ft_printf(const char *format, ...)
 {
 	int		total_count;
-	char	buffer[BUFFER_SIZE + 1];
+	char	buffer[BUFFER_SIZE];
 	va_list	args;
 
 	va_start(args, format);
@@ -35,7 +35,7 @@ int	ft_printf(const char *format, ...)
 			total_count += buffer_append(buffer, *format);
 		format++;
 	}
-	total_count += buffer_clear(buffer);
+	total_count += buffer_append(buffer, *format);
 	va_end(args);
 	return (total_count);
 }

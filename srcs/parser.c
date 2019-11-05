@@ -6,12 +6,11 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 14:58:43 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/04 16:15:53 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/05 17:35:57 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include "lft_std.h"
 #include "lft_string.h"
 #include "lft_ctype.h"
 #include "parse.h"
@@ -24,7 +23,7 @@
 **	ret: The index of the item in str.
 */
 
-static size_t			get_index(char const *str, int item)
+static size_t		get_index(char const *str, int item)
 {
 	size_t	index;
 
@@ -38,46 +37,31 @@ static size_t			get_index(char const *str, int item)
 	return (index);
 }
 
-static int				is_flag(int c)
-{
-	char const *flag = "0-.*";
-
-	return (c && ft_strchr(flag, c));
-}
-
 /*
 **	desc:	Iter through the flags and get all the infos.
 **	args:	#1 The char to parse, #2 the struct for the flags,
-			#3 The list of args to get more infos.
+**			#3 The list of args to get more infos.
 **	ret:	Return the addr where the spec should be.
 */
 
-static void			get_flags(char const *format, t_parse *info, va_list a)
+static void			get_flags(char const *format, t_parse *info, va_list lst)
 {
-	while (ft_isdigit(*format) || is_flag(*format))
+	while (is_flag(*format) || ft_isdigit(*format))
 	{
 		if (*format == '0')
 			info->flag |= FILL_0;
-		if (*format == '*')
-			info->padding = (int)va_arg(a, int);
-		else if (ft_isdigit(*format) || *format == '-')
-			info->padding = ft_atoi(format);
+		else if (*format == '-')
+			info->flag |= LFT_PADD;
 		else if (*format == '.')
-		{
-			info->prec = ft_atoi(format + 1);
-			info->flag |= PREC;
-		}
-		if (*format == '.' || *format == '-' || ft_isdigit(*format))
-		{
-			if (*format == '-' || *format == '.')
-				format++;
-			while (ft_isdigit(*format))
-				format++;
-		}
+			info->prec = get_prec(format + 1, info, lst);
+		else if (ft_isdigit(*format) || *format == '*')
+			info->padding =  get_padding(format, info, lst);
+		if (ft_isdigit(*format) || *format == '.')
+			format = skip_digits(format);
 		else
 			format++;
 	}
-	if (info->spec < 0)
+	if (info->flag & FILL_0 && info->flag & LFT_PADD)
 		info->flag ^= FILL_0;
 }
 
@@ -90,7 +74,7 @@ static void			get_flags(char const *format, t_parse *info, va_list a)
 
 t_parse				init_flags(char const *format, va_list args)
 {
-	const unsigned	tab[8] = {CHAR, STR, PTR, INT, INT, UINT, HEX_MA, HEX_MIN};
+	const unsigned	tab[8] = {CHAR, STR, PTR, INT, INT, UINT, HEX_MIN, HEX_MA};
 	const char		*convert = "cspiduxX";
 	t_parse			infos;
 
@@ -103,6 +87,12 @@ t_parse				init_flags(char const *format, va_list args)
 		infos.spec |= tab[get_index(convert, *format)];
 	return (infos);
 }
+
+/*
+**	desc: Advance the cursor to the spec.
+**	args: #1 The format string.
+**	ret: The addr of the spec in the string.
+*/
 
 char				*advance_cursor(char const *format)
 {

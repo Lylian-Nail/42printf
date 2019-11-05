@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:18:52 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/04 14:50:11 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/05 17:29:26 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 # define PARSE_H
 
 # include <stdarg.h>
+# include <stddef.h>
 
 typedef struct	s_parse
 {
 	unsigned int	flag;
 	unsigned int	spec;
-	int				padding;
-	int				prec;
+	size_t			padding;
+	size_t			prec;
 }				t_parse;
 
 typedef enum	e_spec
@@ -38,10 +39,20 @@ typedef enum	e_spec
 typedef enum	e_flag
 {
 	FILL_0 = (1u << 0),
-	PREC = (1u << 1),
+	LFT_PADD = (1u << 1),
+	PREC = (1u << 2),
+	LFT_PREC = (1u << 3),
 }				t_flag;
 
-t_parse		init_flags(char const *format, va_list args);
-char		*advance_cursor(char const *format);
+# define DEC 		"0123456789"
+# define HEXA_MA	"0123456789ABCDEF"
+# define HEXA_MI	"0123456789abcdef"
+
+int				is_flag(int c);
+size_t			get_padding(char const *nb, t_parse *infos, va_list lst);
+size_t			get_prec(char const *nb, t_parse *infos, va_list lst);
+t_parse			init_flags(char const *format, va_list args);
+char			*advance_cursor(char const *format);
+char			*skip_digits(char const *format);
 
 #endif

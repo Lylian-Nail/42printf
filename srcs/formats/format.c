@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:05:15 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/04 16:08:07 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/05 16:56:59 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,58 @@
 #include "buffer.h"
 #include "formats.h"
 
-static int		format_char(char *buffer, int c, t_parse infos)
+static int			output_char(char *buffer, int c, t_parse infos)
 {
-	int				bytes;
-	unsigned int	count;
+	int		bytes;
 
 	bytes = 0;
-	count = (infos.padding < 0) ? -infos.padding - 1: infos.padding - 1;
-	if (infos.padding > 0)
-		bytes += ft_fill(buffer, ' ', count);
+	format_char(&infos);
+	if (!(infos.flag & LFT_PADD))
+		bytes += ft_fill(buffer, ' ', infos.padding);
 	if (c)
 		bytes += buffer_append(buffer, c);
-	if (infos.padding < 0)
-		bytes += ft_fill(buffer, ' ', count);
+	if (infos.flag & LFT_PADD)
+		bytes += ft_fill(buffer, ' ', infos.padding);
 	return (bytes);
 }
 
-static int		format_str(char *buffer, char *str, t_parse infos)
+static int			output_str(char *buffer, char *str, t_parse infos)
 {
-	int				bytes;
-	int				max;
-	unsigned int	count;
-	size_t			len;
+	int		bytes;
 
 	bytes = 0;
-	len = ft_strlen(str);
-	max = (infos.flag & PREC) ? infos.prec : len;
-	if (max > len)
-		max = len;
-	count = (infos.padding < 0) ? -infos.padding - max : infos.padding - max;
-	if (infos.padding > 0)
-		bytes += ft_fill(buffer, ' ', count);
-	while (max--)
+	format_str(&infos, ft_strlen(str));
+	if (!(infos.flag & LFT_PADD))
+		bytes += ft_fill(buffer, ' ', infos.padding);
+	while (infos.prec--)
 		bytes += buffer_append(buffer, *str++);
-	if (infos.padding < 0)
-		bytes += ft_fill(buffer, ' ', count);
+	if (infos.flag & LFT_PADD)
+		bytes += ft_fill(buffer, ' ', infos.padding);
+	return (bytes);
+}
+
+static int			format_nbr(char *buffer, int nbr, t_parse infos, char *base)
+{
+	int		bytes;
+	size_t	zeros;
+	size_t	padd;
+	size_t	size;
+
+	bytes = 0;
+	size = count_digits(nbr, base);
+	zeros = (infos.prec > (int)size) ? infos.prec - size : 0;
+	padd = (infos.padding < 0 ) ? -infos.padding : infos.padding;
+	padd = padd - (zeros + size);
+		padd = -infos.prec;
+	if (!(infos.flag & FILL_0) && padd > 0)
+		bytes += ft_fill(buffer, ' ', padd);
+	if (nbr < 0)
+		bytes += buffer_append(buffer, '-');
+	if (infos.flag & FILL_0 || zeros > 0)
+		bytes += ft_fill(buffer, '0', zeros);
+	bytes += ft_putnbr_base(buffer, nbr < 0 ? -nbr : nbr, base);
+	if (infos.padding < 0 || infos.prec < 0)
+		bytes += ft_fill(buffer, ' ', padd);
 	return (bytes);
 }
 
@@ -70,8 +87,16 @@ int				ft_format(char *buffer, char const *format, va_list args)
 	if (*format == '%')
 		bytes += buffer_append(buffer, '%');
 	if (infos.spec & CHAR)
-		bytes += format_char(buffer, va_arg(args, int), infos);
+		bytes += output_char(buffer, va_arg(args, int), infos);
 	else if (infos.spec & STR)
-		bytes += format_str(buffer, va_arg(args, char*), infos);
+		bytes += output_str(buffer, va_arg(args, char*), infos);
+	else if (infos.spec & INT)
+		bytes += format_nbr(buffer, va_arg(args, int), infos, DEC);
+	else if (infos.spec & UINT)
+		bytes += format_nbr(buffer, va_arg(args, unsigned int), infos, DEC);
+	else if (infos.spec & HEX_MA)
+		bytes += format_nbr(buffer, va_arg(args, unsigned int), infos, HEXA_MA);
+	else if (infos.spec & HEX_MIN)
+		bytes += format_nbr(buffer, va_arg(args, unsigned int), infos, HEXA_MI);
 	return (bytes);
 }

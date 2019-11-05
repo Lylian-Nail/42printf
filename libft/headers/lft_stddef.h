@@ -6,13 +6,13 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:45:20 by lperson-          #+#    #+#             */
-/*   Updated: 2019/10/28 10:49:29 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/05 10:29:17 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LFT_STDDEF_H
 
-# define LFT_SDDEF_H
+# define LFT_STDDEF_H
 
 typedef enum	e_std
 {
