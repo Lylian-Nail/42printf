@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:07:30 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/05 18:08:27 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 03:53:54 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ int		buffer_append(char *buffer, int item)
 	static size_t	i;
 	int				bytes;
 
-	buffer[i++] = item;
 	bytes = 0;
+	if (item != 0)
+		buffer[i++] = item;
 	if (i == BUFFER_SIZE)
 	{
-		bytes += write(1, buffer, i);
+		bytes += write(1, buffer, BUFFER_SIZE);
 		i = 0;
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
-	else if (item == '\0')
+	else if (item == 0)
 	{
-		bytes += write(1, buffer, i - 1);
+		bytes += write(1, buffer, i);
 		i = 0;
 		ft_bzero(buffer, BUFFER_SIZE);
 	}

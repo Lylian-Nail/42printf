@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:05:15 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/05 16:56:59 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 04:18:57 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,45 @@ static int			output_str(char *buffer, char *str, t_parse infos)
 	return (bytes);
 }
 
-static int			format_nbr(char *buffer, int nbr, t_parse infos, char *base)
+static int			output_nbr(char *buffer, int nbr, t_parse infos, char *base)
 {
-	int		bytes;
-	size_t	zeros;
-	size_t	padd;
-	size_t	size;
+	int				bytes;
+	unsigned int	nb;
 
 	bytes = 0;
-	size = count_digits(nbr, base);
-	zeros = (infos.prec > (int)size) ? infos.prec - size : 0;
-	padd = (infos.padding < 0 ) ? -infos.padding : infos.padding;
-	padd = padd - (zeros + size);
-		padd = -infos.prec;
-	if (!(infos.flag & FILL_0) && padd > 0)
-		bytes += ft_fill(buffer, ' ', padd);
+	nb = (nbr < 0) ? -nbr : nbr; 
+	if (nbr < 0)
+		infos.flag |= NEG;
+	format_nbr(&infos, count_digits(nbr, base));
+	if (!(infos.flag & LFT_PADD) && !(infos.flag & FILL_0))
+		bytes += ft_fill(buffer, ' ', infos.padding);
 	if (nbr < 0)
 		bytes += buffer_append(buffer, '-');
-	if (infos.flag & FILL_0 || zeros > 0)
-		bytes += ft_fill(buffer, '0', zeros);
-	bytes += ft_putnbr_base(buffer, nbr < 0 ? -nbr : nbr, base);
-	if (infos.padding < 0 || infos.prec < 0)
-		bytes += ft_fill(buffer, ' ', padd);
+	if (infos.flag & PREC)
+		bytes += ft_fill(buffer, '0', infos.prec);
+	if (infos.flag & FILL_0)
+		bytes += ft_fill(buffer, '0', infos.padding);
+	bytes += ft_putnbr_base(buffer, nb, base);
+	if (infos.flag & LFT_PADD)
+		bytes += ft_fill(buffer, ' ', infos.padding);
+	return (bytes);
+}
+
+static int			output_uns(char *buf, unsigned n, t_parse inf, char *b)
+{
+	int				bytes;
+
+	bytes = 0;
+	format_nbr(&inf, count_digits(n, b));
+	if (!(inf.flag & LFT_PADD) && !(inf.flag & FILL_0))
+		bytes += ft_fill(buf, ' ', inf.padding);
+	if (inf.flag & PREC)
+		bytes += ft_fill(buf, '0', inf.prec);
+	if (inf.flag & FILL_0)
+		bytes += ft_fill(buf, '0', inf.padding);
+	bytes += ft_putnbr_base(buf, n, b);
+	if (inf.flag & LFT_PADD)
+		bytes += ft_fill(buf, ' ', inf.padding);
 	return (bytes);
 }
 
@@ -91,12 +108,14 @@ int				ft_format(char *buffer, char const *format, va_list args)
 	else if (infos.spec & STR)
 		bytes += output_str(buffer, va_arg(args, char*), infos);
 	else if (infos.spec & INT)
-		bytes += format_nbr(buffer, va_arg(args, int), infos, DEC);
+		bytes += output_nbr(buffer, va_arg(args, int), infos, DEC);
 	else if (infos.spec & UINT)
-		bytes += format_nbr(buffer, va_arg(args, unsigned int), infos, DEC);
+		bytes += output_uns(buffer, va_arg(args, unsigned int), infos, DEC);
 	else if (infos.spec & HEX_MA)
-		bytes += format_nbr(buffer, va_arg(args, unsigned int), infos, HEXA_MA);
+		bytes += output_uns(buffer, va_arg(args, unsigned int), infos, HEXA_MA);
 	else if (infos.spec & HEX_MIN)
-		bytes += format_nbr(buffer, va_arg(args, unsigned int), infos, HEXA_MI);
+		bytes += output_uns(buffer, va_arg(args, unsigned int), infos, HEXA_MI);
+	else if (infos.spec & PTR)
+		bytes += output_ptr(buffer, va_arg(args, void*), infos);
 	return (bytes);
 }

@@ -11,18 +11,19 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf
+NAME = libftprintf.a
 TST = a.out
 
 MAKE = make -s -C
-RM = rm -f
+RM = rm -rf
+MKDIR = mkdir -p
 
 AR = ar
 ARFLAGS = -crs
 
 CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I $(LIBFT_INC) -I headers/
-CFLAGS += -g
 
 INC = ./
 
@@ -30,28 +31,46 @@ LIBFT = $(addprefix $(LIBFT_PATH), libft.a)
 LIBFT_PATH = libft/
 LIBFT_INC = libft/headers/
 
-SRCS = 
-SRCS_T = main.c srcs/buffer.c srcs/ft_printf.c srcs/parser.c srcs/parser2.c srcs/formats/ft_fill.c srcs/formats/format.c srcs/formats/format2.c srcs/formats/ft_putnbr_base.c
+BUILD = build/
+PATHS = srcs/
+PATHS_F = $(addprefix $(PATHS), formats/)
 
-OBJS = $(SRCS:.c=.o)
-OBJS_T = $(SRCS_T:.c=.o)
 
-all: $(TST)
+SRCS = $(addprefix $(PATHS), \
+ft_printf.c \
+buffer.c \
+parser.c \
+parser2.c)
+SRCS += $(addprefix $(PATHS_F), \
+ft_fill.c \
+ft_putnbr_base.c \
+format.c \
+format2.c)
 
-$(TST): $(SRCS_T) | $(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS_T) -o $@ -L$(LIBFT_PATH) -lft
+OBJS = $(addprefix $(BUILD), $(notdir $(SRCS:.c=.o)))
 
-$(NAME): $(OBJS)
+.PHONY = all clean fclean re
+all: $(NAME)
+
+$(NAME): $(BUILD) $(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
 
 $(LIBFT):
 	$(MAKE) $(LIBFT_PATH)
 
-%.o: %.c | $(LIBFT)
+$(BUILD):
+	$(MKDIR) $(BUILD)
+
+$(BUILD)%.o: $(PATHS)%.c | $(LIBFT)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD)%.o: $(PATHS_F)%.c | $(BUILD) $(LIBFT)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(BUILD) && $(MAKE) $(LIBFT_PATH) clean
 
-fclean:
-	$(RM) $(NAME)
+fclean: clean
+	$(RM) $(NAME) && $(MAKE) $(LIBFT_PATH) fclean
+
+re: fclean all
