@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:05:15 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 05:00:44 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:25:44 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ static int			output_char(char *buffer, int c, t_parse infos)
 static int			output_str(char *buffer, char *str, t_parse infos)
 {
 	int		bytes;
+	size_t	len;
 
 	bytes = 0;
-	format_str(&infos, ft_strlen(str));
+	len = (str || infos.flag & PREC) ? ft_strlen(str) : ft_strlen(STR_NULL);
+	format_str(&infos, len);
 	if (!(infos.flag & LFT_PADD))
 		bytes += ft_fill(buffer, ' ', infos.padding);
-	while (infos.prec--)
+	if (str == NULL && !(infos.flag & PREC))
+		bytes += str_buffer_append(buffer, STR_NULL);
+	while (str && infos.prec--)
 		bytes += buffer_append(buffer, *str++);
 	if (infos.flag & LFT_PADD)
 		bytes += ft_fill(buffer, ' ', infos.padding);

@@ -24,6 +24,7 @@ ARFLAGS = -crs
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I $(LIBFT_INC) -I headers/
+CFLAGS += -g
 
 INC = ./
 
@@ -50,10 +51,13 @@ format2.c)
 OBJS = $(addprefix $(BUILD), $(notdir $(SRCS:.c=.o)))
 
 .PHONY = all clean fclean re
-all: $(NAME)
+all: $(NAME) $(TST)
 
 $(NAME): $(BUILD) $(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
+
+$(TST): $(NAME) $(LIBFT)
+	$(CC) -g -I headers/ -I$(LIBFT_INC) main.c -L./ -lftprintf -Llibft/ -lft
 
 $(LIBFT):
 	$(MAKE) $(LIBFT_PATH)

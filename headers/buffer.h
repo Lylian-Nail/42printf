@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:09:18 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 02:42:13 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:26:35 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 # define BUFFER_SIZE	(64)
 
 int		buffer_append(char *buffer, int item);
+int		str_buffer_append(char *buffer, char *str);
 
 #endif

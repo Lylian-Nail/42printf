@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 14:58:43 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 05:00:03 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:26:04 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_parse				init_flags(char const *format, va_list args)
 	infos.spec = 0;
 	infos.padding = 0;
 	infos.flag = 0;
+	infos.prec = 0;
 	get_flags(format, &infos, args);
 	format = advance_cursor(format);
 	if (ft_strchr(convert, *format))

@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:18:52 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 02:53:00 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:18:15 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef enum	e_flag
 # define DEC 		"0123456789"
 # define HEXA_MA	"0123456789ABCDEF"
 # define HEXA_MI	"0123456789abcdef"
+# define STR_NULL	"(null)"
 
 int				is_flag(int c);
 size_t			get_padding(char const *nb, t_parse *infos, va_list lst);

@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:07:30 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 03:53:54 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:17:08 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,15 @@ int		buffer_append(char *buffer, int item)
 		i = 0;
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
+	return (bytes);
+}
+
+int		str_buffer_append(char *buffer, char *str)
+{
+	int			bytes;
+
+	bytes = 0;
+	while (*str)
+		bytes += buffer_append(buffer, *str++);
 	return (bytes);
 }
