@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 14:58:43 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 04:23:03 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 05:00:03 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void			get_flags(char const *format, t_parse *info, va_list lst)
 		else if (*format == '.')
 			info->prec = get_prec(format + 1, info, lst);
 		else if (ft_isdigit(*format) || *format == '*')
-			info->padding =  get_padding(format, info, lst);
+			info->padding = get_padding(format, info, lst);
 		if ((ft_isdigit(*format) && *format != '0') || *format == '.')
 			format = skip_digits(format);
 		else

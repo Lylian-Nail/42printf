@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:05:15 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 04:18:57 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/06 05:00:44 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int			output_nbr(char *buffer, int nbr, t_parse infos, char *base)
 	unsigned int	nb;
 
 	bytes = 0;
-	nb = (nbr < 0) ? -nbr : nbr; 
+	nb = (nbr < 0) ? -nbr : nbr;
 	if (nbr < 0)
 		infos.flag |= NEG;
 	format_nbr(&infos, count_digits(nbr, base));
@@ -94,7 +94,7 @@ static int			output_uns(char *buf, unsigned n, t_parse inf, char *b)
 **	ret: The number of bytes writed.
 */
 
-int				ft_format(char *buffer, char const *format, va_list args)
+int					ft_format(char *buffer, char const *format, va_list args)
 {
 	t_parse	infos;
 	int		bytes;
