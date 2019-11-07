@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:47:17 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/05 18:08:34 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/07 18:39:41 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,21 @@ int	ft_printf(const char *format, ...)
 
 	va_start(args, format);
 	total_count = 0;
+	ft_bzero(buffer, BUFFER_SIZE);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			total_count += ft_format(buffer, ++format, args);
 			format = advance_cursor(format);
+			if (*format && (ft_strchr(SPEC, *format) || *format == '%'))
+				format++;
 		}
 		else
+		{
 			total_count += buffer_append(buffer, *format);
-		format++;
+			format++;
+		}
 	}
 	total_count += buffer_append(buffer, *format);
 	va_end(args);

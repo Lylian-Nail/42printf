@@ -43,10 +43,13 @@ buffer.c \
 parser.c \
 parser2.c)
 SRCS += $(addprefix $(PATHS_F), \
+append_prefix.c \
 ft_fill.c \
 ft_putnbr_base.c \
 format.c \
-format2.c)
+format1.c \
+output1.c \
+output2.c)
 
 OBJS = $(addprefix $(BUILD), $(notdir $(SRCS:.c=.o)))
 

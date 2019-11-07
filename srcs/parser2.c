@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:05:56 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/05 17:42:04 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/07 12:26:02 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ unsigned long long		ft_atoull(char const *str)
 
 int						is_flag(int c)
 {
-	char const *flag = "0-.*";
-
-	return (c && ft_strchr(flag, c));
+	return (c && ft_strchr(FLAG, c));
 }
 
 size_t					get_padding(char const *nb, t_parse *infos, va_list lst)

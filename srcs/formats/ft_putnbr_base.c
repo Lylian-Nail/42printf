@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:45:05 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 03:35:13 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:41:11 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t			count_digits(long nbr, char *base)
 	return (count);
 }
 
-int				ft_putnbr_base(char *buffer, unsigned long nbr, char *base)
+int				ft_putnbr_base(char *buffer, unsigned long long nbr, char *base)
 {
 	int				bytes;
 	size_t			len;
