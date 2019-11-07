@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:44:18 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 18:34:51 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/07 23:45:29 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "formats.h"
 #include "buffer.h"
 #include "lft_string.h"
+
+/*
+**	desc: Cast the arg into the spec type of an unsigned numbers.
+**	Usefull for interpret ll hh h l flags.
+**	args: #1 The list of args that we get, #2 The infos usefull for casting.
+**	ret: Return the good casted value.
+*/
 
 unsigned long long		get_usize(va_list args, t_parse infos)
 {
@@ -29,6 +36,13 @@ unsigned long long		get_usize(va_list args, t_parse infos)
 	return (va_arg(args, unsigned int));
 }
 
+/*
+**	desc: Cast the arg into the spec type of an signed numbers.
+**	Usefull for interpret ll hh h l flags.
+**	args: #1 The list of args that we get, #2 The infos usefull for casting.
+**	ret: Return the good casted value.
+*/
+
 long long				get_size(va_list args, t_parse infos)
 {
 	if (infos.mod_spec & S_CHAR)
@@ -41,6 +55,13 @@ long long				get_size(va_list args, t_parse infos)
 		return (va_arg(args, long long));
 	return (va_arg(args, int));
 }
+
+/*
+**	desc: The follow of ft_format because norm is bullshit sometimes.
+**	args: #1 The buffer, #2 The list of args, #2 The infos of parsing (flag
+**	etc.)
+**	ret: The number of bytes writed or -1 in case of errors.
+*/
 
 int						ft_format2(char *bu, va_list arg, t_parse in)
 {

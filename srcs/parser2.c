@@ -6,21 +6,19 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:05:56 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 12:26:02 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 00:07:24 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "buffer.h"
-#include "parse.h"
 #include <stddef.h>
 #include <stdarg.h>
 #include "lft_ctype.h"
-#include "lft_std.h"
 #include "lft_string.h"
+#include "parse.h"
 
 unsigned long long		ft_atoull(char const *str)
 {
-	long long		nbr;
+	unsigned long long		nbr;
 
 	nbr = 0;
 	while (ft_isdigit(*str))

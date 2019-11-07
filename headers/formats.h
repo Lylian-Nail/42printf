@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 17:31:32 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 17:55:41 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/07 23:59:59 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 # include <stddef.h>
 # include <stdarg.h>
 
+int			ft_fill(char *buffer, int c, size_t size);
+int			append_prefix(char *buffer, t_parse infos);
+size_t		count_digits(long nbr, char *base);
+int			ft_putnbr_base(char *buffer, unsigned long nbr, char *base);
 void		format_char(t_parse *infos);
 void		format_str(t_parse *infos, size_t len);
 void		format_wide_str(t_parse *infos, size_t len);
 void		format_nbr(t_parse *infos, size_t len);
 void		format_ptr(t_parse *infos, size_t len);
 void		format_base(t_parse *infos, size_t len);
-int			ft_fill(char *buffer, int c, size_t size);
-int			append_prefix(char *buffer, t_parse infos);
-size_t		count_digits(long nbr, char *base);
-int			ft_putnbr_base(char *buffer, unsigned long nbr, char *base);
 int			output_char(char *buffer, char c, t_parse infos);
 int			output_str(char *buffer, char *str, t_parse infos);
 int			output_ptr(char *buffer, void *ptr, t_parse infos);

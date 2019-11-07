@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format.c                                           :+:      :+:    :+:   */
+/*   output1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:05:15 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 16:29:43 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 00:03:05 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		output_dec(char *buffer, long long nbr, t_parse infos)
 	nb = (nbr < 0) ? -nbr : nbr;
 	if (nbr < 0)
 		infos.flag |= NEG;
-	format_nbr(&infos, count_digits(nbr, B_DEC));
+	format_nbr(&infos, count_digits(nb, B_DEC));
 	if (!(infos.flag & LFT_PADD) && !(infos.flag & FILL_0))
 		bytes += ft_fill(buffer, ' ', infos.padding);
 	if (nbr < 0)

@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:47:17 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 18:39:41 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/07 23:40:59 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include "buffer.h"
 #include "parse.h"
 #include "formats.h"
+
+/*
+**	desc: Not man 3 printf, it's bullshit but use the microsoft docs instead.
+**	args: #1 The format string, #2 a list of arguments.
+**	ret: Return the number of bytes writed or -1 in case of error.
+*/
 
 int	ft_printf(const char *format, ...)
 {

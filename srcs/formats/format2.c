@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:36:24 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/06 17:19:03 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 00:02:24 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,4 @@ void	format_ptr(t_parse *infos, size_t len)
 	else
 		infos->padding = 0;
 	infos->padding = (infos->padding >= 2) ? infos->padding - 2 : 0;
-}
-
-int		output_ptr(char *buffer, void *ptr, t_parse infos)
-{
-	int				bytes;
-	unsigned long	nbr;
-
-	bytes = 0;
-	nbr = (unsigned long)ptr;
-	format_ptr(&infos, count_digits(nbr, HEXA_MI));
-	if (!(infos.flag & LFT_PADD) && !(infos.flag & FILL_0))
-		bytes += ft_fill(buffer, ' ', infos.padding);
-	bytes += buffer_append(buffer, '0');
-	bytes += buffer_append(buffer, 'x');
-	if (infos.flag & PREC)
-		bytes += ft_fill(buffer, '0', infos.prec);
-	if (infos.flag & FILL_0)
-		bytes += ft_fill(buffer, '0', infos.padding);
-	bytes += ft_putnbr_base(buffer, nbr, HEXA_MI);
-	if (infos.flag & LFT_PADD)
-		bytes += ft_fill(buffer, ' ', infos.padding);
-	return (bytes);
 }

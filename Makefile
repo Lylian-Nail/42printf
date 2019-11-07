@@ -43,9 +43,7 @@ buffer.c \
 parser.c \
 parser2.c)
 SRCS += $(addprefix $(PATHS_F), \
-append_prefix.c \
-ft_fill.c \
-ft_putnbr_base.c \
+usefull_func.c \
 format.c \
 format1.c \
 output1.c \

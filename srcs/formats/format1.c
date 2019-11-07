@@ -6,13 +6,19 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:36:24 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 16:45:42 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/07 23:50:32 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include <stddef.h>
 #include <unistd.h>
+
+/*
+**	I'm not going to details each functions, read the doc of printf to
+**	understand the subtilities but each func modify the precisions and padding
+**	to format the output. 
+*/
 
 void	format_char(t_parse *infos)
 {
