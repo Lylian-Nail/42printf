@@ -21,7 +21,7 @@ MKDIR = mkdir -p
 AR = ar
 ARFLAGS = -crs
 
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I $(LIBFT_INC) -I headers/
 CFLAGS += -g

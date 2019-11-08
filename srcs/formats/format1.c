@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:36:24 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 23:50:32 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:07:18 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*
 **	I'm not going to details each functions, read the doc of printf to
 **	understand the subtilities but each func modify the precisions and padding
-**	to format the output. 
+**	to format the output.
 */
 
 void	format_char(t_parse *infos)
@@ -44,29 +44,17 @@ void	format_nbr(t_parse *infos, size_t len)
 	pad_dec = infos->prec + len;
 	if (infos->flag & NEG || infos->flag & SIGNED || infos->flag & INV_SIGN)
 		pad_dec += 1;
+	if (infos->flag & ZERO && infos->flag & PREC && infos->prec == 0)
+		pad_dec -= 1;
 	infos->padding = (infos->padding > pad_dec) ? infos->padding - pad_dec : 0;
-}
-
-void	format_ptr(t_parse *infos, size_t len)
-{
-	size_t		total_len;
-
-	if (infos->flag & PREC && infos->prec > len)
-		infos->prec -= len;
-	else
-		infos->prec = 0;
-	total_len = infos->prec + len;
-	if (infos->padding > total_len)
-		infos->padding -= total_len;
-	else
-		infos->padding = 0;
-	infos->padding = (infos->padding >= 2) ? infos->padding - 2 : 0;
 }
 
 void	format_base(t_parse *infos, size_t len)
 {
 	size_t	pad_dec;
 
+	if (infos->flag & ZERO && infos->flag & PREFIX)
+		infos->flag ^= PREFIX;
 	if (infos->flag & PREC && infos->prec > len)
 		infos->prec -= len;
 	else
@@ -76,5 +64,7 @@ void	format_base(t_parse *infos, size_t len)
 		pad_dec += 1;
 	if (infos->flag & PREFIX)
 		pad_dec += 2;
+	if (infos->flag & ZERO && infos->flag & PREC && infos->prec == 0)
+		pad_dec -= 1;
 	infos->padding = (infos->padding > pad_dec) ? infos->padding - pad_dec : 0;
 }

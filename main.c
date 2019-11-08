@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 15:34:07 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/08 00:14:45 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:01:04 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,48 +17,55 @@
 
 int		main(void)
 {
-	// CHAR.
-	printf("%d\n",
-	ft_printf("This is the letter:%-2c!\n", 'a'));
-	printf("%d\n",
-	printf("This is the letter:%-2c!\n", 'a'));
-	// STR.
-	printf("Mine: %d\n",
-	ft_printf("This is the letters:%4s!\n", NULL));
-	printf("Official: %d\n",
-	printf("This is the letters:%4s!\n", NULL));
+	// // %
+	// printf("%d\n",
+	// ft_printf("This is the letter:%05%!\n"));
+	// printf("%d\n",
+	// printf("This is the letter:%05%!\n"));
+	// // // CHAR.
+	// printf("%d\n",
+	// ft_printf("This is the letter:%02c!\n", 'a'));
+	// printf("%d\n",
+	// printf("This is the letter:%02c!\n", 'a'));
+	// // STR.
+	// printf("%d\n",
+	// ft_printf("This is the letters:%4.2s!\n", NULL));
+	// printf("%d\n",
+	// printf("This is the letters:%4.2s!\n", NULL));
 	// NBR.
 	printf("%d\n",
-	ft_printf("This is the number:% -30lli!\n", LLONG_MIN));
+	ft_printf("This is the number:% -30lli!\n", 0));
 	printf("%d\n",
-	printf("This is the number:% -30lli!\n", LLONG_MIN));
+	printf("This is the number:% -30lli!\n", 0));
 	// HEXA.
-	printf("%d\n",
-	ft_printf("This is the number:%#-10.50llX!\n", LLONG_MAX));
-	printf("%d\n",
-	printf("This is the number:%#-10.50llX!\n", LLONG_MAX));
-	// PTR.
-	int		nbr = 255;
-	printf("%d\n",
-	ft_printf("This is the addr:%60p!\n", &nbr));
-	printf("%d\n",
-	printf("This is the addr:%60p!\n", &nbr));
-	//Nothing.
-	printf("%d\n",
-	ft_printf("This is the addr:%60p!\n", &nbr));
-	printf("%d\n",
-	printf("This is the addr:%60p!\n", &nbr));
-	//%
-	printf("%d\n",
-	ft_printf("This is the addr:%%!\n"));
-	printf("%d\n",
-	printf("This is the addr:%%!\n"));
-	printf("%d\n",
-	ft_printf("This is the addr:%n!\n", &nbr));
-	printf("N=%d\n", nbr);
-	printf("%d\n",
-	printf("This is the addr:%n!\n", &nbr));
-	printf("N=%d\n", nbr);
-
-	return (0);
+	// printf("%d\n",
+	// ft_printf("This is the number:%#-3x!\n", 0));
+	// printf("%d\n",
+	// printf("This is the number:%#-3x!\n", 0));
+	// // PTR.
+	// int		nbr = 255;
+	// printf("%d\n",
+	// ft_printf("This is the addr:%60p!\n", &nbr));
+	// printf("%d\n",
+	// printf("This is the addr:%60p!\n", &nbr));
+	// //Nothing.
+	// printf("%d\n",
+	// ft_printf("This is the addr:%60p!\n", &nbr));
+	// printf("%d\n",
+	// printf("This is the addr:%60p!\n", &nbr));
+	// //%
+	// printf("%d\n",
+	// ft_printf("This is the addr:%%!\n"));
+	// printf("%d\n",
+	// printf("This is the addr:%%!\n"));
+	// printf("%d\n",
+	// ft_printf("This is the addr:%n!\n", &nbr));
+	// printf("N=%d\n", nbr);
+	// printf("%d\n",
+	// printf("This is the addr:%n!\n", &nbr));
+	// printf("N=%d\n", nbr);
+	// //'
+	// printf("%d\n",
+	// 	printf("Integer is %'d and %d\n", 12345678));
+	// return (0);
 }

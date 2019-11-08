@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:18:52 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 17:52:56 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:51:37 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 # include <stdarg.h>
 # include <stddef.h>
 
-typedef struct	s_parse
+typedef struct		s_parse
 {
 	unsigned int	flag;
 	unsigned int	spec;
 	unsigned int	mod_spec;
 	size_t			padding;
 	size_t			prec;
-}				t_parse;
+}					t_parse;
 
-typedef enum	e_spec
+typedef enum		e_spec
 {
 	CHAR = (1u << 0),
 	STR = (1u << 1),
@@ -36,28 +36,30 @@ typedef enum	e_spec
 	HEX_MA = (1u << 5),
 	HEX_MIN = (1u << 6),
 	LEN = (1u << 7),
-}				t_spec;
+}					t_spec;
 
-typedef enum	e_mod_spec
+typedef enum		e_mod_spec
 {
 	S_CHAR = (1u << 0),
 	S_SHORT = (1u << 1),
 	S_LONG = (1u << 2),
 	S_LL = (1u << 3),
-}				t_mod_spec;
+}					t_mod_spec;
 
-typedef enum	e_flag
+typedef enum		e_flag
 {
 	FILL_0 = (1u << 0),
 	LFT_PADD = (1u << 1),
 	PREC = (1u << 2),
 	NEG = (1u << 4),
-	SIGNED = (1u << 5),
-	INV_SIGN = (1u << 6),
-	PREFIX = (1u << 7),
-}				t_flag;
+	ZERO = (1u << 5),
+	SIGNED = (1u << 6),
+	INV_SIGN = (1u << 7),
+	PREFIX = (1u << 8),
+	SEP = (1u << 9),
+}					t_flag;
 
-# define FLAG		"0-.*# +lh"
+# define FLAG		"0-.*# +lh'"
 # define SPEC		"cspiduxXn"
 
 # define B_DEC 		"0123456789"
@@ -67,7 +69,7 @@ typedef enum	e_flag
 # define HEX_PRE	"0x"
 # define HEX_MA_PRE	"0X"
 
-unsigned long long ft_atoull(char const *str);
+unsigned long long	ft_atoull(char const *str);
 int					is_flag(int c);
 size_t				get_padding(char const *nb, t_parse *infos, va_list lst);
 size_t				get_prec(char const *nb, t_parse *infos, va_list lst);

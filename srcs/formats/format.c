@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:44:18 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 23:45:29 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:05:31 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 **	ret: Return the good casted value.
 */
 
-unsigned long long		get_usize(va_list args, t_parse infos)
+unsigned long long	get_usize(va_list args, t_parse infos)
 {
 	if (infos.mod_spec & S_CHAR)
 		return ((unsigned char)va_arg(args, int));
@@ -31,7 +31,7 @@ unsigned long long		get_usize(va_list args, t_parse infos)
 		return ((unsigned short)va_arg(args, int));
 	else if (infos.mod_spec & S_LONG)
 		return (va_arg(args, unsigned long));
-	else if (infos.mod_spec & S_LL)
+	else if (infos.mod_spec & S_LL || infos.spec & PTR)
 		return (va_arg(args, unsigned long long));
 	return (va_arg(args, unsigned int));
 }
@@ -43,7 +43,7 @@ unsigned long long		get_usize(va_list args, t_parse infos)
 **	ret: Return the good casted value.
 */
 
-long long				get_size(va_list args, t_parse infos)
+long long			get_size(va_list args, t_parse infos)
 {
 	if (infos.mod_spec & S_CHAR)
 		return ((char)va_arg(args, int));
@@ -63,7 +63,7 @@ long long				get_size(va_list args, t_parse infos)
 **	ret: The number of bytes writed or -1 in case of errors.
 */
 
-int						ft_format2(char *bu, va_list arg, t_parse in)
+int					ft_format2(char *bu, va_list arg, t_parse in)
 {
 	int		bytes;
 
@@ -81,7 +81,7 @@ int						ft_format2(char *bu, va_list arg, t_parse in)
 **	ret: The number of bytes writed.
 */
 
-int						ft_format(char *buffer, char const *format,\
+int					ft_format(char *buffer, char const *format,\
 va_list args)
 {
 	t_parse	infos;
@@ -89,8 +89,9 @@ va_list args)
 
 	bytes = 0;
 	infos = init_flags(format, args);
+	format = advance_cursor(format);
 	if (*format == '%')
-		bytes += buffer_append(buffer, '%');
+		bytes += output_char(buffer, '%', infos);
 	else if (infos.spec & CHAR)
 		bytes += output_char(buffer, va_arg(args, int), infos);
 	else if (infos.spec & STR)
@@ -104,7 +105,7 @@ va_list args)
 	else if (infos.spec & HEX_MIN)
 		bytes += output_base(buffer, get_usize(args, infos), infos, B_HEXA_MI);
 	else if (infos.spec & PTR)
-		bytes += output_ptr(buffer, va_arg(args, void*), infos);
+		bytes += output_base(buffer, get_usize(args, infos), infos, B_HEXA_MI);
 	else
 		bytes += ft_format2(buffer, args, infos);
 	return (bytes);

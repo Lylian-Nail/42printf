@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 14:58:43 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 18:31:52 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:46:06 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static char			*get_size_spec(char const *format, t_parse *infos)
 	if (*format == 'h')
 	{
 		if (*(format + 1) == 'h')
-			infos->mod_spec |= S_SHORT;
-		else
 			infos->mod_spec |= S_CHAR;
+		else
+			infos->mod_spec |= S_SHORT;
 	}
 	else if (*format == 'l')
 	{
@@ -120,7 +120,7 @@ t_parse				init_flags(char const *format, va_list args)
 	format = advance_cursor(format);
 	if (ft_strchr(SPEC, *format))
 		infos.spec |= tab[get_index(SPEC, *format)];
-	if (infos.prec & PTR)
+	if (infos.spec & PTR)
 		infos.flag |= PREFIX;
 	if (infos.flag & FILL_0 && (infos.flag & LFT_PADD || infos.flag & PREC))
 		infos.flag ^= FILL_0;

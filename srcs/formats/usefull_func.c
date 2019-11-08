@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:45:05 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/08 00:01:17 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:07:44 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include "parse.h"
 #include "buffer.h"
 #include "lft_string.h"
+
+/*
+**	desc: Append a sign to the buffer (-, + or ' ').
+**	args: #1 The same buffer, #2 the infos wich sign to use.
+**	ret: The number of bytes writed.
+*/
+
+int		append_sign(char *buffer, t_parse infos)
+{
+	if (infos.flag & NEG)
+		return (buffer_append(buffer, '-'));
+	else if (infos.flag & SIGNED)
+		return (buffer_append(buffer, '+'));
+	else if (infos.flag & INV_SIGN)
+		return (buffer_append(buffer, ' '));
+	return (0);
+}
 
 /*
 **	desc: Append a prefix into buffer.
@@ -27,7 +44,7 @@ int		append_prefix(char *buffer, t_parse infos)
 {
 	char *prefix;
 
-	if (infos.spec & HEX_MIN)
+	if (infos.spec & HEX_MIN || infos.spec & PTR)
 		prefix = HEX_PRE;
 	else if (infos.spec & HEX_MA)
 		prefix = HEX_MA_PRE;
@@ -58,7 +75,7 @@ int		ft_fill(char *buffer, int c, size_t size)
 **	ret: The number of digits encoded int the spec base.
 */
 
-size_t			count_digits(unsigned long long nbr, char *base)
+size_t	count_digits(unsigned long long nbr, char *base)
 {
 	size_t			count;
 	size_t			len;
@@ -81,13 +98,13 @@ size_t			count_digits(unsigned long long nbr, char *base)
 **	ret: Return the number of bytes writed of -1 gnagnagna.
 */
 
-int				ft_putnbr_base(char *buffer, unsigned long long nbr, char *base)
+int		ft_putnbr_base(char *buffer, unsigned long long nbr, char *base)
 {
-	int				bytes;
-	size_t			len;
+	int		bytes;
+	size_t	len;
 
 	len = ft_strlen(base);
-	if (nbr > len)
+	if (nbr >= len)
 	{
 		bytes = ft_putnbr_base(buffer, nbr / len, base);
 		return (ft_putnbr_base(buffer, nbr % len, base) + bytes);
