@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:07:30 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 23:39:35 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/10 11:34:29 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 **	ret: Return the numbers of bytes that has been write to STD_OUT.
 */
 
-int		buffer_append(char *buffer, int item)
+int		buffer_append(char *buffer, int item, int end)
 {
 	static size_t	i;
 	int				bytes;
 
 	bytes = 0;
-	if (item != 0)
+	if (!end)
 		buffer[i++] = item;
 	if (i == BUFFER_SIZE)
 	{
@@ -35,7 +35,7 @@ int		buffer_append(char *buffer, int item)
 		i = 0;
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
-	else if (item == 0)
+	else if (end)
 	{
 		bytes += write(1, buffer, i);
 		i = 0;
@@ -56,6 +56,6 @@ int		str_buffer_append(char *buffer, char *str)
 
 	bytes = 0;
 	while (*str)
-		bytes += buffer_append(buffer, *str++);
+		bytes += buffer_append(buffer, *str++, 0);
 	return (bytes);
 }

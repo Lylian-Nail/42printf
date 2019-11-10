@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 14:18:52 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/08 15:51:37 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:30:11 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef enum		e_spec
 	UINT = (1u << 4),
 	HEX_MA = (1u << 5),
 	HEX_MIN = (1u << 6),
-	LEN = (1u << 7),
+	FLOAT = (1u << 7),
+	LEN = (1u << 8),
 }					t_spec;
 
 typedef enum		e_mod_spec
@@ -60,7 +61,7 @@ typedef enum		e_flag
 }					t_flag;
 
 # define FLAG		"0-.*# +lh'"
-# define SPEC		"cspiduxXn"
+# define SPEC		"cspiduxXnf"
 
 # define B_DEC 		"0123456789"
 # define B_HEXA_MA	"0123456789ABCDEF"

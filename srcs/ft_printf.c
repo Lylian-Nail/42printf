@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:47:17 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/07 23:40:59 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/10 11:32:48 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			total_count += buffer_append(buffer, *format);
+			total_count += buffer_append(buffer, *format, 0);
 			format++;
 		}
 	}
-	total_count += buffer_append(buffer, *format);
+	total_count += buffer_append(buffer, *format, 1);
 	va_end(args);
 	return (total_count);
 }

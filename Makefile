@@ -40,12 +40,13 @@ PATHS_F = $(addprefix $(PATHS), formats/)
 SRCS = $(addprefix $(PATHS), \
 ft_printf.c \
 buffer.c \
-parser.c \
+parser1.c \
 parser2.c)
 SRCS += $(addprefix $(PATHS_F), \
-usefull_func.c \
-format.c \
+usefull_func1.c \
+usefull_func2.c \
 format1.c \
+format2.c \
 output1.c \
 output2.c)
 
