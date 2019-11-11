@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 15:34:07 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/08 19:01:04 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:22:25 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ int		main(void)
 	// printf("%d\n",
 	// printf("This is the letters:%4.2s!\n", NULL));
 	// NBR.
-	printf("%d\n",
-	ft_printf("This is the number:% -30lli!\n", 0));
-	printf("%d\n",
-	printf("This is the number:% -30lli!\n", 0));
+	// printf("%d\n",
+	// ft_printf("This is the number:% -30lli!\n", 0));
+	// printf("%d\n",
+	// printf("This is the number:% -30lli!\n", 0));
+	// printf("%d\n",
+	// 	ft_printf("%500d\n", 0));
+	// printf("%d\n",
+	// 	printf("%500d\n", 0));
 	// HEXA.
 	// printf("%d\n",
 	// ft_printf("This is the number:%#-3x!\n", 0));
@@ -67,5 +71,8 @@ int		main(void)
 	// //'
 	// printf("%d\n",
 	// 	printf("Integer is %'d and %d\n", 12345678));
+	// TST
+	printf("%d\n",
+		ft_printf("%o", 123));
 	// return (0);
 }

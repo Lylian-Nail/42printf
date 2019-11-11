@@ -12,7 +12,6 @@
 # **************************************************************************** #
 
 NAME = libftprintf.a
-TST = a.out
 
 MAKE = make -s -C
 RM = rm -rf
@@ -53,13 +52,10 @@ output2.c)
 OBJS = $(addprefix $(BUILD), $(notdir $(SRCS:.c=.o)))
 
 .PHONY = all clean fclean re
-all: $(NAME) $(TST)
+all: $(NAME)
 
 $(NAME): $(BUILD) $(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
-
-$(TST): $(NAME) $(LIBFT)
-	$(CC) -g -I headers/ -I$(LIBFT_INC) main.c -L./ -lftprintf -Llibft/ -lft
 
 $(LIBFT):
 	$(MAKE) $(LIBFT_PATH)
@@ -71,12 +67,14 @@ $(BUILD)%.o: $(PATHS)%.c | $(LIBFT)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD)%.o: $(PATHS_F)%.c | $(BUILD) $(LIBFT)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
 	$(RM) $(BUILD) && $(MAKE) $(LIBFT_PATH) clean
 
 fclean: clean
 	$(RM) $(NAME) && $(MAKE) $(LIBFT_PATH) fclean
+
+bonus: re 
 
 re: fclean all

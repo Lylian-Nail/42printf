@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:05:15 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/10 15:20:03 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:29:45 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		output_dec(char *buffer, long long nbr, t_parse infos)
 	if (nbr == 0 && infos.flag & PREC && infos.prec == 0)
 		is_printable = 0;
 	format_nbr(&infos, count_digits(nb, B_DEC), is_printable);
-	ft_putpadd_and_zeros(buffer, infos);
+	bytes += ft_putpadd_and_zeros(buffer, infos);
 	if (infos.flag & SEP && count_digits(nbr, B_DEC) > 3)
 		bytes += ft_putnbr_base_sep(buffer, nbr, B_DEC,\
 		count_digits(nbr, B_DEC));
@@ -86,7 +86,7 @@ int		output_uns(char *buf, unsigned long long nbr, t_parse infos)
 	if (nbr == 0 && infos.flag & PREC && infos.prec == 0)
 		is_printable = 0;
 	format_nbr(&infos, count_digits(nbr, B_DEC), is_printable);
-	ft_putpadd_and_zeros(buf, infos);
+	bytes += ft_putpadd_and_zeros(buf, infos);
 	if (infos.flag & SEP && count_digits(nbr, B_DEC) > 3)
 		bytes += ft_putnbr_base_sep(buf, nbr, B_DEC, count_digits(nbr, B_DEC));
 	else if (is_printable)

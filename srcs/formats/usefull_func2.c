@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 13:21:05 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/10 17:58:29 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:05:29 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	ft_putpadd_and_zeros(char *buffer, t_parse infos)
 
 /*
 **	desc: Putnbr with a separator ',' between each grouping numbers.
-**	args: #1 The buffer, #2 the nbr, #3 The base wich is encoded, #4 the len of **	the nbr.
+**	args: #1 The buffer, #2 the nbr, #3 The base wich is encoded, #4 the len\
+**	the nbr.
 **	ret: The number of bytes that has been writed.
 */
 
