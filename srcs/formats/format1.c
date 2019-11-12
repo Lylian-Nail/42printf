@@ -14,7 +14,6 @@
 #include "parse.h"
 #include "formats.h"
 #include "buffer.h"
-#include "lft_string.h"
 
 /*
 **	desc: Cast the arg into the spec type of an unsigned numbers.
@@ -57,19 +56,6 @@ long long			get_size(va_list args, t_parse infos)
 }
 
 /*
-**	desc: The follow of ft_format because norm is bullshit sometimes.
-**	args: #1 The buffer, #2 The list of args, #2 The infos of parsing (flag
-**	etc.)
-**	ret: The number of bytes writed or -1 in case of errors.
-*/
-
-void				ft_format2(va_list arg, t_parse in)
-{
-	if (in.spec & LEN)
-		get_actual_len(va_arg(arg, void*));
-}
-
-/*
 **	desc: Format the output and append it to buffer.
 **	args: #1 the buffer we use, #2 The format string, #3 The list of args.
 **	ret: The number of bytes writed.
@@ -93,10 +79,8 @@ void				ft_format(char const *format, va_list args)
 		output_uns(get_usize(args, infos), infos);
 	else if (infos.spec & HEX_MA)
 		output_base(get_usize(args, infos), infos, B_HEXA_MA);
-	else if (infos.spec & HEX_MIN)
+	else if (infos.spec & HEX_MIN || infos.spec & PTR)
 		output_base(get_usize(args, infos), infos, B_HEXA_MI);
-	else if (infos.spec & PTR)
-		output_base(get_usize(args, infos), infos, B_HEXA_MI);
-	else
-		ft_format2(args, infos);
+	else if (infos.spec & LEN)
+		get_actual_len(va_arg(args, void *));
 }

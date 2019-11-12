@@ -136,5 +136,99 @@ int		main(void)
 	printf("%d\n",
 		printf("This is the char:%3.d!\n", 0));
 	printf("\n");
+
+	// SIGNED FLAGS.
+	printf("%d\n",
+		ft_printf("This is the char:%+-5d!\n", 10));
+	printf("%d\n",
+		printf("This is the char:%+-5d!\n", 10));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:% -5d!\n", 10));
+	printf("%d\n",
+		printf("This is the char:% -5d!\n", 10));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:% -5d!\n", -10));
+	printf("%d\n",
+		printf("This is the char:% -5d!\n", -10));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:% +-5d!\n", 10));
+	printf("%d\n",
+		printf("This is the char:% +-5d!\n", 10));
+	printf("\n");
+
+	//UNSIGNED INT
+	printf("%d\n",
+		ft_printf("This is the char:%300d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%300d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%-300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%-300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%030d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%030d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%0300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%0300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%0300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%0300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%3.d!\n", 0));
+	printf("%d\n",
+		printf("This is the char:%3.d!\n", 0));
+	printf("\n");
+
+	// SIGNED FLAGS.
+	printf("%d\n",
+		ft_printf("This is the char:%+-5d!\n", 10));
+	printf("%d\n",
+		printf("This is the char:%+-5d!\n", 10));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:% -5d!\n", 10));
+	printf("%d\n",
+		printf("This is the char:% -5d!\n", 10));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:% -5d!\n", -10));
+	printf("%d\n",
+		printf("This is the char:% -5d!\n", -10));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:% +-5d!\n", 10));
+	printf("%d\n",
+		printf("This is the char:% +-5d!\n", 10));
+	printf("\n");
+
 	return (0);
 }

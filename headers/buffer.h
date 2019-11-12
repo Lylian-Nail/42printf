@@ -16,7 +16,7 @@
 
 # include <stddef.h>
 
-# define BUFFER_SIZE	(256)
+# define BUFFER_SIZE	(1)
 
 typedef struct	s_buf
 {
@@ -24,9 +24,9 @@ typedef struct	s_buf
 	long		size;
 }				t_buf;
 
-t_buf	*_get_buffer(void);
-void	buffer_append(int item);
-void	str_buffer_append(char *str);
-size_t	flush_buffer(void);
+t_buf			*_get_buffer(void);
+void			buffer_append(int item);
+void			str_buffer_append(char *str);
+int				flush_buffer(void);
 
 #endif

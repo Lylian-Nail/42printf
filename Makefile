@@ -17,7 +17,7 @@ RM = rm -rf
 MKDIR = mkdir -p
 
 AR = ar
-ARFLAGS = -cTrs
+ARFLAGS = -Tcrs # t'es crs ? Tro drol.
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror

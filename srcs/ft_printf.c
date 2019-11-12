@@ -27,7 +27,7 @@ int	ft_printf(const char *format, ...)
 	va_list	args;
 
 	va_start(args, format);
-	while (*format)
+	while (*format && _get_buffer()->size != -1)
 	{
 		if (*format == '%')
 		{

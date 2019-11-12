@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "parse.h"
-#include "formats.h"
 #include "buffer.h"
-#include "lft_string.h"
 
 void		get_actual_len(int *ptr)
 {

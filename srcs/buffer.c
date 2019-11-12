@@ -52,14 +52,16 @@ void				buffer_append(int item)
 {
 	t_buf	*buffer;
 	int		*i;
+	int		ret;
 
 	buffer = _get_buffer();
 	i = _get_index();
 	buffer->buf[(*i)++] = item;
-	if (*i == BUFFER_SIZE)
+	if (*i == BUFFER_SIZE && buffer->size != -1)
 	{
 		*i = 0;
-		buffer->size += write(1, buffer->buf, BUFFER_SIZE);
+		ret = write(1, buffer->buf, BUFFER_SIZE);
+		buffer->size = (ret != -1) ? buffer->size + ret : -1;
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
 }
@@ -82,7 +84,7 @@ void				str_buffer_append(char *str)
 **	ret: Return the total count writed.
 */
 
-size_t				flush_buffer(void)
+int					flush_buffer(void)
 {
 	t_buf	*buffer;
 	int		*i;
@@ -90,8 +92,9 @@ size_t				flush_buffer(void)
 
 	buffer = _get_buffer();
 	i = _get_index();
-	buffer->size += write(1, buffer->buf, *i);
-	size = buffer->size;
+	size = write(1, buffer->buf, *i);
+	if (size != -1)
+		size = buffer->size + size;
 	ft_bzero(buffer->buf, BUFFER_SIZE);
 	*i = 0;
 	buffer->size = 0;
