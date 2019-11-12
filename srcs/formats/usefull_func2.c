@@ -21,20 +21,16 @@
 **	ret: The number of bytes writed.
 */
 
-int	ft_putpadd_and_zeros(char *buffer, t_parse infos)
+void	ft_putpadd_and_zeros(t_parse infos)
 {
-	int	bytes;
-
-	bytes = 0;
 	if (!(infos.flag & LFT_PADD) && !(infos.flag & FILL_0))
-		bytes += ft_fill(buffer, ' ', infos.padding);
+		ft_fill(' ', infos.padding);
 	if (infos.flag & NEG || infos.flag & SIGNED || infos.flag & INV_SIGN)
-		bytes += append_sign(buffer, infos);
+		append_sign(infos);
 	if (infos.flag & PREC)
-		bytes += ft_fill(buffer, '0', infos.prec);
+		ft_fill('0', infos.prec);
 	if (infos.flag & FILL_0)
-		bytes += ft_fill(buffer, '0', infos.padding);
-	return (bytes);
+		ft_fill('0', infos.padding);
 }
 
 /*
@@ -44,29 +40,23 @@ int	ft_putpadd_and_zeros(char *buffer, t_parse infos)
 **	ret: The number of bytes that has been writed.
 */
 
-int	ft_putnbr_base_sep(char *buffer, unsigned long long nbr,\
+void	ft_putnbr_base_sep(unsigned long long nbr,\
 char *base, size_t c_digits)
 {
-	int			bytes;
 	size_t		len;
 	long long	result;
 
 	len = ft_strlen(base);
-	bytes = 0;
 	result = c_digits - count_digits(nbr, base);
 	if (nbr >= len)
 	{
-		bytes = ft_putnbr_base_sep(buffer, nbr / len, base, c_digits);
+		ft_putnbr_base_sep(nbr / len, base, c_digits);
 		if ((c_digits - 1) % 3 == 0 && (result + 1) % 3 == 0)
-			bytes += buffer_append(buffer, ',', 0);
-		bytes += ft_putnbr_base_sep(buffer, nbr % len, base, c_digits);
+			buffer_append(',');
+		ft_putnbr_base_sep(nbr % len, base, c_digits);
 		if ((c_digits - 1) % 3 != 0 && result && result % 3 == 0)
-			bytes += buffer_append(buffer, ',', 0);
-		return (bytes);
+			buffer_append(',');
 	}
 	else
-	{
-		bytes += buffer_append(buffer, nbr + '0', 0);
-		return (bytes);
-	}
+		buffer_append(nbr + '0');
 }

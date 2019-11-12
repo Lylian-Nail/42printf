@@ -24,29 +24,21 @@
 
 int	ft_printf(const char *format, ...)
 {
-	int		total_count;
-	char	buffer[BUFFER_SIZE];
 	va_list	args;
 
 	va_start(args, format);
-	total_count = 0;
-	ft_bzero(buffer, BUFFER_SIZE);
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			total_count += ft_format(buffer, ++format, args);
+			ft_format(++format, args);
 			format = advance_cursor(format);
 			if (*format && (ft_strchr(SPEC, *format) || *format == '%'))
 				format++;
 		}
 		else
-		{
-			total_count += buffer_append(buffer, *format, 0);
-			format++;
-		}
+			buffer_append(*format++);
 	}
-	total_count += buffer_append(buffer, *format, 1);
 	va_end(args);
-	return (total_count);
+	return (flush_buffer());
 }

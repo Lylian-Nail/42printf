@@ -18,7 +18,15 @@
 
 # define BUFFER_SIZE	(256)
 
-int		buffer_append(char *buffer, int item, int end);
-int		str_buffer_append(char *buffer, char *str);
+typedef struct	s_buf
+{
+	char		buf[BUFFER_SIZE];
+	long		size;
+}				t_buf;
+
+t_buf	*_get_buffer(void);
+void	buffer_append(int item);
+void	str_buffer_append(char *str);
+size_t	flush_buffer(void);
 
 #endif

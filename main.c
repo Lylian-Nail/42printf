@@ -17,62 +17,124 @@
 
 int		main(void)
 {
-	// // %
-	// printf("%d\n",
-	// ft_printf("This is the letter:%05%!\n"));
-	// printf("%d\n",
-	// printf("This is the letter:%05%!\n"));
-	// // // CHAR.
-	// printf("%d\n",
-	// ft_printf("This is the letter:%02c!\n", 'a'));
-	// printf("%d\n",
-	// printf("This is the letter:%02c!\n", 'a'));
-	// // STR.
-	// printf("%d\n",
-	// ft_printf("This is the letters:%4.2s!\n", NULL));
-	// printf("%d\n",
-	// printf("This is the letters:%4.2s!\n", NULL));
-	// NBR.
-	// printf("%d\n",
-	// ft_printf("This is the number:% -30lli!\n", 0));
-	// printf("%d\n",
-	// printf("This is the number:% -30lli!\n", 0));
-	// printf("%d\n",
-	// 	ft_printf("%500d\n", 0));
-	// printf("%d\n",
-	// 	printf("%500d\n", 0));
-	// HEXA.
-	// printf("%d\n",
-	// ft_printf("This is the number:%#-3x!\n", 0));
-	// printf("%d\n",
-	// printf("This is the number:%#-3x!\n", 0));
-	// // PTR.
-	// int		nbr = 255;
-	// printf("%d\n",
-	// ft_printf("This is the addr:%60p!\n", &nbr));
-	// printf("%d\n",
-	// printf("This is the addr:%60p!\n", &nbr));
-	// //Nothing.
-	// printf("%d\n",
-	// ft_printf("This is the addr:%60p!\n", &nbr));
-	// printf("%d\n",
-	// printf("This is the addr:%60p!\n", &nbr));
-	// //%
-	// printf("%d\n",
-	// ft_printf("This is the addr:%%!\n"));
-	// printf("%d\n",
-	// printf("This is the addr:%%!\n"));
-	// printf("%d\n",
-	// ft_printf("This is the addr:%n!\n", &nbr));
-	// printf("N=%d\n", nbr);
-	// printf("%d\n",
-	// printf("This is the addr:%n!\n", &nbr));
-	// printf("N=%d\n", nbr);
-	// //'
-	// printf("%d\n",
-	// 	printf("Integer is %'d and %d\n", 12345678));
-	// TST
+	// CHAR
 	printf("%d\n",
-		ft_printf("%o", 123));
-	// return (0);
+		ft_printf("This is the char:%c!\n", 'a'));
+	printf("%d\n",
+		printf("This is the char:%c!\n", 'a'));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%3c!\n", 'a'));
+	printf("%d\n",
+		printf("This is the char:%3c!\n", 'a'));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%-3c!\n", 'a'));
+	printf("%d\n",
+		printf("This is the char:%-3c!\n", 'a'));
+	printf("\n");
+
+	// UNDEFINED BEHAVIOR
+	printf("%d\n",
+		ft_printf("This is the char:%03c!\n", 'a'));
+	printf("%d\n",
+		printf("This is the char:%03c!\n", 'a'));
+	printf("\n");
+
+	// STR
+	printf("%d\n",
+		ft_printf("This is the char:%s!\n", "Hey you"));
+	printf("%d\n",
+		printf("This is the char:%s!\n", "Hey you"));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%3s!\n", "Hey you"));
+	printf("%d\n",
+		printf("This is the char:%3s!\n", "Hey you"));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%3.3s!\n", "Hey you"));
+	printf("%d\n",
+		printf("This is the char:%3.3s!\n", "Hey you"));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%3.s!\n", "Hey you"));
+	printf("%d\n",
+		printf("This is the char:%3.s!\n", "Hey you"));
+	printf("\n");
+
+	// NULL
+	printf("%d\n",
+		ft_printf("This is the char:%s!\n", NULL));
+	printf("%d\n",
+		printf("This is the char:%s!\n", NULL));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%300s!\n", NULL));
+	printf("%d\n",
+		printf("This is the char:%300s!\n", NULL));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%300.3s!\n", NULL));
+	printf("%d\n",
+		printf("This is the char:%300.3s!\n", NULL));
+	printf("\n");
+
+	// UNDEFINED BEHAVIOR
+	printf("%d\n",
+		ft_printf("This is the char:%300.3s!\n", NULL));
+	printf("%d\n",
+		printf("This is the char:%300.3s!\n", NULL));
+	printf("\n");
+
+	// SIGNED INT
+	printf("%d\n",
+		ft_printf("This is the char:%300d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%300d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%-300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%-300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%030d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%030d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%0300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%0300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%0300.30d!\n", 100));
+	printf("%d\n",
+		printf("This is the char:%0300.30d!\n", 100));
+	printf("\n");
+
+	printf("%d\n",
+		ft_printf("This is the char:%3.d!\n", 0));
+	printf("%d\n",
+		printf("This is the char:%3.d!\n", 0));
+	printf("\n");
+	return (0);
 }

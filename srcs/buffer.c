@@ -14,6 +14,33 @@
 #include "libft.h"
 #include <unistd.h>
 
+
+/*
+**	desc: Get the buffer struc.
+**	args: None.
+**	ret: Return the struc to the buffer.
+*/
+
+t_buf				*_get_buffer(void)
+{
+	static t_buf	buffer;
+
+	return (&buffer);
+}
+
+/*
+**	desc: Return the pos in the buffer.
+**	args: None.
+**	ret: Return the pos in the buffer.
+*/
+
+static int			*_get_index(void)
+{
+	static int	i;
+
+	return (&i);
+}
+
 /*
 **	desc: Append a char to the buffer, if the buffer is entirely fill
 **	print the datas and return that has been printed.
@@ -21,27 +48,20 @@
 **	ret: Return the numbers of bytes that has been write to STD_OUT.
 */
 
-int		buffer_append(char *buffer, int item, int end)
+void				buffer_append(int item)
 {
-	static size_t	i;
-	int				bytes;
+	t_buf	*buffer;
+	int		*i;
 
-	bytes = 0;
-	if (!end)
-		buffer[i++] = item;
-	if (i == BUFFER_SIZE)
+	buffer = _get_buffer();
+	i = _get_index();
+	buffer->buf[(*i)++] = item;
+	if (*i == BUFFER_SIZE)
 	{
-		bytes += write(1, buffer, BUFFER_SIZE);
-		i = 0;
+		*i = 0;
+		buffer->size += write(1, buffer->buf, BUFFER_SIZE);
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
-	else if (end)
-	{
-		bytes += write(1, buffer, i);
-		i = 0;
-		ft_bzero(buffer, BUFFER_SIZE);
-	}
-	return (bytes);
 }
 
 /*
@@ -50,12 +70,30 @@ int		buffer_append(char *buffer, int item, int end)
 **	ret: Return the bytes writed to stdout.
 */
 
-int		str_buffer_append(char *buffer, char *str)
+void				str_buffer_append(char *str)
 {
-	int			bytes;
-
-	bytes = 0;
 	while (*str)
-		bytes += buffer_append(buffer, *str++, 0);
-	return (bytes);
+		buffer_append(*str++);
+}
+
+/*
+**	desc: Flush the buffer and write all.
+**	args: None.
+**	ret: Return the total count writed.
+*/
+
+size_t				flush_buffer(void)
+{
+	t_buf	*buffer;
+	int		*i;
+	long	size;
+
+	buffer = _get_buffer();
+	i = _get_index();
+	buffer->size += write(1, buffer->buf, *i);
+	size = buffer->size;
+	ft_bzero(buffer->buf, BUFFER_SIZE);
+	*i = 0;
+	buffer->size = 0;
+	return (size);
 }

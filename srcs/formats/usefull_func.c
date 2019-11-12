@@ -21,15 +21,14 @@
 **	ret: The number of bytes writed.
 */
 
-int		append_sign(char *buffer, t_parse infos)
+void		append_sign(t_parse infos)
 {
 	if (infos.flag & NEG)
-		return (buffer_append(buffer, '-'));
+		buffer_append('-');
 	else if (infos.flag & SIGNED)
-		return (buffer_append(buffer, '+'));
+		buffer_append('+');
 	else if (infos.flag & INV_SIGN)
-		return (buffer_append(buffer, ' '));
-	return (0);
+		buffer_append(' ');
 }
 
 /*
@@ -40,7 +39,7 @@ int		append_sign(char *buffer, t_parse infos)
 **	ret: Return the number of bytes writed or -1 in case of errors (again).
 */
 
-int		append_prefix(char *buffer, t_parse infos)
+void		append_prefix(t_parse infos)
 {
 	char *prefix;
 
@@ -50,7 +49,7 @@ int		append_prefix(char *buffer, t_parse infos)
 		prefix = HEX_MA_PRE;
 	else
 		prefix = "";
-	return (str_buffer_append(buffer, prefix));
+	str_buffer_append(prefix);
 }
 
 /*
@@ -59,14 +58,11 @@ int		append_prefix(char *buffer, t_parse infos)
 **	ret: Return the number of bytes writed to the output.
 */
 
-int		ft_fill(char *buffer, int c, size_t size)
+int		ft_fill(int c, size_t size)
 {
-	int		bytes;
 
-	bytes = 0;
 	while (size--)
-		bytes += buffer_append(buffer, c);
-	return (bytes);
+		buffer_append(c);
 }
 
 /*
@@ -98,17 +94,16 @@ size_t	count_digits(unsigned long long nbr, char *base)
 **	ret: Return the number of bytes writed of -1 gnagnagna.
 */
 
-int		ft_putnbr_base(char *buffer, unsigned long long nbr, char *base)
+void		ft_putnbr_base(unsigned long long nbr, char *base)
 {
-	int		bytes;
 	size_t	len;
 
 	len = ft_strlen(base);
 	if (nbr >= len)
 	{
-		bytes = ft_putnbr_base(buffer, nbr / len, base);
-		return (ft_putnbr_base(buffer, nbr % len, base) + bytes);
+		ft_putnbr_base(nbr / len, base);
+		ft_putnbr_base(nbr % len, base) + bytes;
 	}
 	else
-		return (buffer_append(buffer, base[nbr]));
+		buffer_append(base[nbr]);
 }

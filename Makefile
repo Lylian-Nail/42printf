@@ -1,4 +1,3 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -18,9 +17,9 @@ RM = rm -rf
 MKDIR = mkdir -p
 
 AR = ar
-ARFLAGS = -crs
+ARFLAGS = -cTrs
 
-CC = clang
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I $(LIBFT_INC) -I headers/
 CFLAGS += -g
@@ -54,8 +53,8 @@ OBJS = $(addprefix $(BUILD), $(notdir $(SRCS:.c=.o)))
 .PHONY = all clean fclean re
 all: $(NAME)
 
-$(NAME): $(BUILD) $(OBJS)
-	$(AR) $(ARFLAGS) $@ $(OBJS)
+$(NAME): $(BUILD) $(OBJS) $(LIBFT)
+	$(AR) $(ARFLAGS) $@ $(OBJS) $(LIBFT)
 
 $(LIBFT):
 	$(MAKE) $(LIBFT_PATH)
@@ -63,10 +62,10 @@ $(LIBFT):
 $(BUILD):
 	$(MKDIR) $(BUILD)
 
-$(BUILD)%.o: $(PATHS)%.c | $(LIBFT)
+$(BUILD)%.o: $(PATHS)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD)%.o: $(PATHS_F)%.c | $(BUILD) $(LIBFT)
+$(BUILD)%.o: $(PATHS_F)%.c
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:

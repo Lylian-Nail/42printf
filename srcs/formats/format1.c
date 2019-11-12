@@ -63,16 +63,10 @@ long long			get_size(va_list args, t_parse infos)
 **	ret: The number of bytes writed or -1 in case of errors.
 */
 
-int					ft_format2(char *bu, va_list arg, t_parse in)
+void				ft_format2(va_list arg, t_parse in)
 {
-	int		bytes;
-
-	bytes = 0;
 	if (in.spec & LEN)
-		get_actual_len(bu, va_arg(arg, int*));
-	else if (!in.spec && !(in.flag & LFT_PADD))
-		bytes += ft_fill(bu, ' ', in.padding - 1);
-	return (bytes);
+		get_actual_len(va_arg(arg, void*));
 }
 
 /*
@@ -81,32 +75,28 @@ int					ft_format2(char *bu, va_list arg, t_parse in)
 **	ret: The number of bytes writed.
 */
 
-int					ft_format(char *buffer, char const *format,\
-va_list args)
+void				ft_format(char const *format, va_list args)
 {
 	t_parse	infos;
-	int		bytes;
 
-	bytes = 0;
 	infos = init_flags(format, args);
 	format = advance_cursor(format);
 	if (*format == '%')
-		bytes += output_char(buffer, '%', infos);
+		output_char('%', infos);
 	else if (infos.spec & CHAR)
-		bytes += output_char(buffer, va_arg(args, int), infos);
+		output_char(va_arg(args, int), infos);
 	else if (infos.spec & STR)
-		bytes += output_str(buffer, va_arg(args, char*), infos);
+		output_str(va_arg(args, char*), infos);
 	else if (infos.spec & INT)
-		bytes += output_dec(buffer, get_size(args, infos), infos);
+		output_dec(get_size(args, infos), infos);
 	else if (infos.spec & UINT)
-		bytes += output_uns(buffer, get_usize(args, infos), infos);
+		output_uns(get_usize(args, infos), infos);
 	else if (infos.spec & HEX_MA)
-		bytes += output_base(buffer, get_usize(args, infos), infos, B_HEXA_MA);
+		output_base(get_usize(args, infos), infos, B_HEXA_MA);
 	else if (infos.spec & HEX_MIN)
-		bytes += output_base(buffer, get_usize(args, infos), infos, B_HEXA_MI);
+		output_base(get_usize(args, infos), infos, B_HEXA_MI);
 	else if (infos.spec & PTR)
-		bytes += output_base(buffer, get_usize(args, infos), infos, B_HEXA_MI);
+		output_base(get_usize(args, infos), infos, B_HEXA_MI);
 	else
-		bytes += ft_format2(buffer, args, infos);
-	return (bytes);
+		ft_format2(args, infos);
 }
