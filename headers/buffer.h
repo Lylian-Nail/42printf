@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:09:18 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/10 13:17:57 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:20:35 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ typedef struct	s_buf
 	long		size;
 }				t_buf;
 
-t_buf			*_get_buffer(void);
-void			buffer_append(int item);
-void			str_buffer_append(char *str);
-int				flush_buffer(void);
+void			buffer_append(t_buf *buffer, int item);
+void			str_buffer_append(t_buf *buffer, char *str);
+int				flush_buffer(t_buf *buffer);
 
 #endif

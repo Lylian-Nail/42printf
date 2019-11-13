@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   usefull_func.c                                     :+:      :+:    :+:   */
+/*   usefull_func1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:45:05 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/10 11:34:49 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:32:09 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 **	ret: The number of bytes writed.
 */
 
-void		append_sign(t_parse infos)
+void		append_sign(t_buf *buffer, t_parse infos)
 {
 	if (infos.flag & NEG)
-		buffer_append('-');
+		buffer_append(buffer, '-');
 	else if (infos.flag & SIGNED)
-		buffer_append('+');
+		buffer_append(buffer, '+');
 	else if (infos.flag & INV_SIGN)
-		buffer_append(' ');
+		buffer_append(buffer, ' ');
 }
 
 /*
@@ -39,7 +39,7 @@ void		append_sign(t_parse infos)
 **	ret: Return the number of bytes writed or -1 in case of errors (again).
 */
 
-void		append_prefix(t_parse infos)
+void		append_prefix(t_buf *buffer, t_parse infos)
 {
 	char *prefix;
 
@@ -49,7 +49,7 @@ void		append_prefix(t_parse infos)
 		prefix = HEX_MA_PRE;
 	else
 		prefix = "";
-	str_buffer_append(prefix);
+	str_buffer_append(buffer, prefix);
 }
 
 /*
@@ -58,10 +58,10 @@ void		append_prefix(t_parse infos)
 **	ret: Return the number of bytes writed to the output.
 */
 
-void		ft_fill(int c, size_t size)
+void		ft_fill(t_buf *buffer, int c, size_t size)
 {
 	while (size--)
-		buffer_append(c);
+		buffer_append(buffer, c);
 }
 
 /*
@@ -93,16 +93,16 @@ size_t		count_digits(unsigned long long nbr, char *base)
 **	ret: Return the number of bytes writed of -1 gnagnagna.
 */
 
-void		ft_putnbr_base(unsigned long long nbr, char *base)
+void		ft_putnbr_base(t_buf *buffer, unsigned long long nbr, char *base)
 {
 	size_t	len;
 
 	len = ft_strlen(base);
 	if (nbr >= len)
 	{
-		ft_putnbr_base(nbr / len, base);
-		ft_putnbr_base(nbr % len, base);
+		ft_putnbr_base(buffer, nbr / len, base);
+		ft_putnbr_base(buffer, nbr % len, base);
 	}
 	else
-		buffer_append(base[nbr]);
+		buffer_append(buffer, base[nbr]);
 }

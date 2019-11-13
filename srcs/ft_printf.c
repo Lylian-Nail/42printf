@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 11:47:17 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/10 11:32:48 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:33:06 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,22 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
+	t_buf	buffer;
 
 	va_start(args, format);
-	while (*format && _get_buffer()->size != -1)
+	buffer.size = 0;
+	while (*format && buffer.size != -1)
 	{
 		if (*format == '%')
 		{
-			ft_format(++format, args);
+			ft_format(&buffer, ++format, args);
 			format = advance_cursor(format);
 			if (*format && (ft_strchr(SPEC, *format) || *format == '%'))
 				format++;
 		}
 		else
-			buffer_append(*format++);
+			buffer_append(&buffer, *format++);
 	}
 	va_end(args);
-	return (flush_buffer());
+	return (flush_buffer(&buffer));
 }

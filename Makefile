@@ -6,7 +6,7 @@
 #    By: lperson- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/27 14:38:10 by lperson-          #+#    #+#              #
-#    Updated: 2019/11/04 11:50:57 by lperson-         ###   ########.fr        #
+#    Updated: 2019/11/13 09:53:12 by lperson-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,23 +17,19 @@ RM = rm -rf
 MKDIR = mkdir -p
 
 AR = ar
-ARFLAGS = -Tcrs # t'es crs ? Tro drol.
+ARFLAGS = -crs # t'es crs ? Tro drol.
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -I $(LIBFT_INC) -I headers/
+CFLAGS += -I headers/
 CFLAGS += -g
 
 INC = ./
 
-LIBFT = $(addprefix $(LIBFT_PATH), libft.a)
-LIBFT_PATH = libft/
-LIBFT_INC = libft/headers/
-
 BUILD = build/
 PATHS = srcs/
 PATHS_F = $(addprefix $(PATHS), formats/)
-
+PATHS_U = $(addprefix $(PATHS), utils/)
 
 SRCS = $(addprefix $(PATHS), \
 ft_printf.c \
@@ -47,17 +43,19 @@ format1.c \
 format2.c \
 output1.c \
 output2.c)
+SRCS += $(addprefix $(PATHS_U), \
+ft_bzero.c \
+ft_isdigit.c \
+ft_strchr.c \
+ft_strlen.c)
 
 OBJS = $(addprefix $(BUILD), $(notdir $(SRCS:.c=.o)))
 
 .PHONY = all clean fclean re
 all: $(NAME)
 
-$(NAME): $(BUILD) $(OBJS) $(LIBFT)
-	$(AR) $(ARFLAGS) $@ $(OBJS) $(LIBFT)
-
-$(LIBFT):
-	$(MAKE) $(LIBFT_PATH)
+$(NAME): $(BUILD) $(OBJS)
+	$(AR) $(ARFLAGS) $@ $(OBJS)
 
 $(BUILD):
 	$(MKDIR) $(BUILD)
@@ -66,13 +64,16 @@ $(BUILD)%.o: $(PATHS)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD)%.o: $(PATHS_F)%.c
-	$(CC) $(CFLAGS) -c $< -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD)%.o: $(PATHS_U)%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(BUILD) && $(MAKE) $(LIBFT_PATH) clean
+	$(RM) $(BUILD)
 
 fclean: clean
-	$(RM) $(NAME) && $(MAKE) $(LIBFT_PATH) fclean
+	$(RM) $(NAME)
 
 bonus: re 
 

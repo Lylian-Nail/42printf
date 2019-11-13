@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format.c                                           :+:      :+:    :+:   */
+/*   format1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:44:18 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/08 18:05:31 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:36:51 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,26 @@ long long			get_size(va_list args, t_parse infos)
 **	ret: The number of bytes writed.
 */
 
-void				ft_format(char const *format, va_list args)
+void				ft_format(t_buf *buffer, char const *format, va_list args)
 {
 	t_parse	infos;
 
 	infos = init_flags(format, args);
 	format = advance_cursor(format);
 	if (*format == '%')
-		output_char('%', infos);
+		output_char(buffer, '%', infos);
 	else if (infos.spec & CHAR)
-		output_char(va_arg(args, int), infos);
+		output_char(buffer, va_arg(args, int), infos);
 	else if (infos.spec & STR)
-		output_str(va_arg(args, char*), infos);
+		output_str(buffer, va_arg(args, char*), infos);
 	else if (infos.spec & INT)
-		output_dec(get_size(args, infos), infos);
+		output_dec(buffer, get_size(args, infos), infos);
 	else if (infos.spec & UINT)
-		output_uns(get_usize(args, infos), infos);
+		output_uns(buffer, get_usize(args, infos), infos);
 	else if (infos.spec & HEX_MA)
-		output_base(get_usize(args, infos), infos, B_HEXA_MA);
+		output_base(buffer, get_usize(args, infos), infos, B_HEXA_MA);
 	else if (infos.spec & HEX_MIN || infos.spec & PTR)
-		output_base(get_usize(args, infos), infos, B_HEXA_MI);
+		output_base(buffer, get_usize(args, infos), infos, B_HEXA_MI);
 	else if (infos.spec & LEN)
-		get_actual_len(va_arg(args, void *));
+		get_actual_len(buffer, va_arg(args, void *));
 }

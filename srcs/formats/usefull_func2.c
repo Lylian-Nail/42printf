@@ -6,7 +6,7 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 13:21:05 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/11 12:05:29 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:34:55 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 **	ret: The number of bytes writed.
 */
 
-void	ft_putpadd_and_zeros(t_parse infos)
+void	ft_putpadd_and_zeros(t_buf *buffer, t_parse infos)
 {
 	if (!(infos.flag & LFT_PADD) && !(infos.flag & FILL_0))
-		ft_fill(' ', infos.padding);
+		ft_fill(buffer, ' ', infos.padding);
 	if (infos.flag & NEG || infos.flag & SIGNED || infos.flag & INV_SIGN)
-		append_sign(infos);
+		append_sign(buffer, infos);
 	if (infos.flag & PREC)
-		ft_fill('0', infos.prec);
+		ft_fill(buffer, '0', infos.prec);
 	if (infos.flag & FILL_0)
-		ft_fill('0', infos.padding);
+		ft_fill(buffer, '0', infos.padding);
 }
 
 /*
@@ -40,7 +40,7 @@ void	ft_putpadd_and_zeros(t_parse infos)
 **	ret: The number of bytes that has been writed.
 */
 
-void	ft_putnbr_base_sep(unsigned long long nbr,\
+void	ft_putnbr_base_sep(t_buf *buffer, unsigned long long nbr,\
 char *base, size_t c_digits)
 {
 	size_t		len;
@@ -50,13 +50,13 @@ char *base, size_t c_digits)
 	result = c_digits - count_digits(nbr, base);
 	if (nbr >= len)
 	{
-		ft_putnbr_base_sep(nbr / len, base, c_digits);
+		ft_putnbr_base_sep(buffer, nbr / len, base, c_digits);
 		if ((c_digits - 1) % 3 == 0 && (result + 1) % 3 == 0)
-			buffer_append(',');
-		ft_putnbr_base_sep(nbr % len, base, c_digits);
+			buffer_append(buffer, ',');
+		ft_putnbr_base_sep(buffer, nbr % len, base, c_digits);
 		if ((c_digits - 1) % 3 != 0 && result && result % 3 == 0)
-			buffer_append(',');
+			buffer_append(buffer, ',');
 	}
 	else
-		buffer_append(nbr + '0');
+		buffer_append(buffer, nbr + '0');
 }

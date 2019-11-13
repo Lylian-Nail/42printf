@@ -6,14 +6,14 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:35:09 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/11 17:24:50 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:56:21 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "buffer.h"
 
-void		get_actual_len(int *ptr)
+void		get_actual_len(t_buf *buffer, int *ptr)
 {
 	if (ptr)
-		*ptr = _get_buffer()->size;
+		*ptr = buffer->size;
 }

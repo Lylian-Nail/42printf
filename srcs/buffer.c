@@ -6,27 +6,13 @@
 /*   By: lperson- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:07:30 by lperson-          #+#    #+#             */
-/*   Updated: 2019/11/10 11:34:29 by lperson-         ###   ########.fr       */
+/*   Updated: 2019/11/13 10:56:02 by lperson-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "buffer.h"
-#include "libft.h"
+#include "lft_string.h"
 #include <unistd.h>
-
-
-/*
-**	desc: Get the buffer struc.
-**	args: None.
-**	ret: Return the struc to the buffer.
-*/
-
-t_buf				*_get_buffer(void)
-{
-	static t_buf	buffer;
-
-	return (&buffer);
-}
 
 /*
 **	desc: Return the pos in the buffer.
@@ -34,7 +20,7 @@ t_buf				*_get_buffer(void)
 **	ret: Return the pos in the buffer.
 */
 
-static int			*_get_index(void)
+static int			*get_index(void)
 {
 	static int	i;
 
@@ -48,14 +34,12 @@ static int			*_get_index(void)
 **	ret: Return the numbers of bytes that has been write to STD_OUT.
 */
 
-void				buffer_append(int item)
+void				buffer_append(t_buf *buffer, int item)
 {
-	t_buf	*buffer;
 	int		*i;
 	int		ret;
 
-	buffer = _get_buffer();
-	i = _get_index();
+	i = get_index();
 	buffer->buf[(*i)++] = item;
 	if (*i == BUFFER_SIZE && buffer->size != -1)
 	{
@@ -72,10 +56,10 @@ void				buffer_append(int item)
 **	ret: Return the bytes writed to stdout.
 */
 
-void				str_buffer_append(char *str)
+void				str_buffer_append(t_buf *buffer, char *str)
 {
 	while (*str)
-		buffer_append(*str++);
+		buffer_append(buffer, *str++);
 }
 
 /*
@@ -84,14 +68,12 @@ void				str_buffer_append(char *str)
 **	ret: Return the total count writed.
 */
 
-int					flush_buffer(void)
+int					flush_buffer(t_buf *buffer)
 {
-	t_buf	*buffer;
 	int		*i;
 	long	size;
 
-	buffer = _get_buffer();
-	i = _get_index();
+	i = get_index();
 	size = write(1, buffer->buf, *i);
 	if (size != -1)
 		size = buffer->size + size;
